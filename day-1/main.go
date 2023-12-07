@@ -1,8 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"os"
+	"advent-of-code-2023/util"
 	"regexp"
 	"strconv"
 	"strings"
@@ -12,27 +11,14 @@ func main() {
 	var fileName string = "input.txt"
 	var result int = 0
 
-	lines := readFile(fileName)
+	lines := util.ReadFile(fileName)
 
 	for _, line := range lines {
-		temp := parseToNr(getCalibrationValue(line))
+		temp := util.ParseToNr(getCalibrationValue(line))
 		result += temp
 	}
 
 	println("Result: ", result)
-}
-
-func readFile(fileName string) []string {
-	var lines []string
-	data, err := os.Open(fileName)
-	check(err)
-	fileScanner := bufio.NewScanner(data)
-	fileScanner.Split(bufio.ScanLines)
-
-	for fileScanner.Scan() {
-		lines = append(lines, fileScanner.Text())
-	}
-	return lines
 }
 
 func getCalibrationValue(line string) string {
@@ -68,12 +54,6 @@ func checkIfNrAsText(text string) string {
 	targetString := substring(text, 0, increment)
 	result := strings.Replace(text, targetString, parseTextToNumber(targetString), 1)
 	return result[0:1]
-}
-
-func parseToNr(char string) int {
-	i, err := strconv.Atoi(char)
-	check(err)
-	return i
 }
 
 func parseTextToNumber(text string) string {
@@ -114,10 +94,4 @@ func isNrChar(char string) bool {
 		}
 	}
 	return false
-}
-
-func check(error error) {
-	if error != nil {
-		panic(error)
-	}
 }

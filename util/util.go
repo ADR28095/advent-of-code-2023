@@ -19,8 +19,8 @@ func ReadFile(fileName string) []string {
 	return lines
 }
 
-func ParseToNr(char string) int {
-	i, err := strconv.Atoi(char)
+func ParseToNr(text string) int {
+	i, err := strconv.Atoi(text)
 	Check(err)
 	return i
 }
